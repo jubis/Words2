@@ -1,0 +1,14 @@
+<h1>Add new word</h1>
+<div ng-show="loadingData">
+	<h2 class="text-center">Lataa sanoja...</h2>
+</div>
+<div ng-hide="loadingData">
+	<div class="field">
+		<input type="text" class="large input" ng-model="word">
+	</div>
+	<div class="field">
+		<input type="text" class="large input" ng-model="answer">
+	</div>
+	<div class="large success btn" ng-hide="saving"><button ng-click="save()">Add</button></div>
+	<div class="large default alert" ng-show="saving">Saving word...</div>
+</div>

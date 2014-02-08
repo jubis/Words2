@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="wordsApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Words</title>
+
+	<script type="text/javascript" src="assets/js/angular.js"></script>
+	<script type="text/javascript" src="app/controllers/askword.js"></script>
+	<script type="text/javascript" src="assets/js/angular-route.js"></script>
+	<script type="text/javascript" src="assets/js/firebase.js"></script>
+	<script type="text/javascript" src="assets/js/angularfire.js"></script>
+
+	<script type="text/javascript" src="app/app.js"></script>
+	<script type="text/javascript" src="app/controllers/askword.js"></script>
+	<script type="text/javascript" src="app/controllers/managewords.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="assets/css/gumby.css">
+</head>
+<body>
+
+<div id="container" class="row">
+	<section class="push_two eight columns">
+		<div ng-view></div>
+	</section>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+<h1>Translate!</h1>
+<div ng-show="loadingData">
+	<h2 class="text-center">Lataa sanoja...</h2>
+</div>
+<div ng-hide="loadingData">
+	<h2 class="lead text-center">{{question.word}}</h2>
+	<div class="field" ng-class="{danger: error, success: success}">
+		<input class="large xxwide text input" type="text" ng-model="userAnswer" ng-keypress="keyPress($event)">
+		<!-- <div class="medium primary btn"><a href="#">Try it out</a></div> -->
+	</div>
+	<div class="row">
+		<div class="btn large primary centered four columns"><button ng-click="validate()">Try</button></div>
+	</div>
+</div>

@@ -1,0 +1,18 @@
+@mixin large {
+	@include font-size($larger);
+	height: 42px !important;
+}
+
+.field .input.large {
+	@include large;
+}
+
+.alert.large {
+	@include large;
+	padding: 5px 10px 0; 
+}
+
+
+#container {
+	/*padding-top: 20px;*/
+}
