@@ -7,7 +7,9 @@ wordsCtrl.controller("AskWord", ["$scope", "$firebase", function($scope, $fireba
 	var base = new Firebase("https://popping-fire-5673.firebaseio.com/");
 	$scope.d = $firebase(base);
 	$scope.d.$on("loaded", function() {
-		$scope.question = $scope.d.words[0];
+		$scope.question = {};
+		$scope.question.word = $scope.d.words[0].word;
+		$scope.question.answer = $scope.d.words[0].answer;
 		$scope.loadingData = false;
 	});
 
@@ -15,7 +17,8 @@ wordsCtrl.controller("AskWord", ["$scope", "$firebase", function($scope, $fireba
 		do {
 			var random = Math.floor(Math.random()*($scope.d.words.length));
 			var newQuestion = $scope.d.words[random];
-		} while(newQuestion.word == $scope.question.word);
+		} while(newQuestion.id == $scope.question.id);
+
 		if(Math.random() > 0.5) {
 			$scope.question.word = newQuestion.word;
 			$scope.question.answer = newQuestion.answer;
@@ -24,9 +27,11 @@ wordsCtrl.controller("AskWord", ["$scope", "$firebase", function($scope, $fireba
 			$scope.question.word = newQuestion.answer;
 			$scope.question.answer = newQuestion.word;
 		}
+		$scope.question.id = newQuestion.id;
+
 		$scope.userAnswer = "";
+		emptyValidationIndicators();
 	}
-	$scope.$watch("question", emptyValidationIndicators);
 
 	$scope.userAnswer = "";
 	function emptyValidationIndicators() { 

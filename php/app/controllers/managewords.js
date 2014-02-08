@@ -13,14 +13,23 @@ manageController.controller("ManageWords", ["$scope", "$firebase", function($sco
 	$scope.word = "";
 	$scope.answer = "";
 	$scope.saving = false;
+
+
 	$scope.save = function() {
 		$scope.saving = true;
-		$scope.d.words.push({word: $scope.word, answer: $scope.answer});
+		var newWord = {word: $scope.word, answer: $scope.answer};
+		newWord.id = getNextId();
+		$scope.d.words.push(newWord);
 		$scope.d.$save().then(function() {
 			$scope.word = "";
 			$scope.answer = "";
 			$scope.saving = false;
 		});
+	}
+
+	function getNextId() {
+		var last = $scope.d.words[$scope.d.words.length - 1];
+		return Number(last.id) + 1;
 	}
 
 }]);
