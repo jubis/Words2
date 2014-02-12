@@ -90,4 +90,10 @@ wordsCtrl.controller("AskWord", ["$scope", "$firebase", function($scope, $fireba
 		$scope.tipUsed = false;
 		$scope.tip = "";
 	}
+
+
+	$scope.next = function() {
+		randomQuestion();
+		$scope.scores -= ($scope.scores > 0) ? 1 : 0;
+	}
 }]);
