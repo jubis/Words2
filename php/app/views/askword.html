@@ -4,7 +4,7 @@
 </div>
 <div ng-hide="loadingData">
 	<section>
-		<h3 class="text-center" ng-show="scores">{{scores}} scores</h3>
+		<h3 class="text-center" >{{scores}} scores <strong>/ {{topScores}} max</strong></h3>
 		<h2 class="lead text-center">{{question.word}}</h2>
 		<div class="field" ng-class="{danger: error, success: success}">
 			<input class="large xxwide text input" type="text" ng-model="userAnswer" ng-keypress="keyPress($event)">
@@ -18,7 +18,7 @@
 		<div class="btn large success push_two four columns" ng-class="{disabled:!userAnswer}">
 			<button ng-click="validate()" ng-disabled="!userAnswer">Try</button>
 		</div>
-		<div class="btn large primary four columns" ng-hide="tipUsed">
+		<div class="btn large warning four columns" ng-hide="tipUsed">
 			<button ng-click="showTip()" ng-disabled="tipUsed">Give a Tip</button>
 		</div>
 		<div class="btn large danger four columns" ng-show="tipUsed" ng-class="{disabled:revealed}">

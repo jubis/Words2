@@ -17,6 +17,7 @@ wordsCtrl.controller("AskWord", ["$scope", "$firebase", function($scope, $fireba
 	$scope.revealed = false;
 
 	$scope.scores = 0;
+	$scope.topScores = 0;
 	var scoresForRound = 1;
 
 	var base = new Firebase("https://popping-fire-5673.firebaseio.com/");
@@ -43,9 +44,14 @@ wordsCtrl.controller("AskWord", ["$scope", "$firebase", function($scope, $fireba
 		}
 		$scope.question.id = newQuestion.id;
 
+		reinit();
+	}
+
+	function reinit() {
 		$scope.userAnswer = "";
 		emptyValidationIndicators();
 		reinitTip();
+		$scope.revealed = false;
 		scoresForRound = 1;
 	}
 
@@ -60,8 +66,7 @@ wordsCtrl.controller("AskWord", ["$scope", "$firebase", function($scope, $fireba
 	function validate() {
 		if($scope.userAnswer.toUpperCase() == $scope.question.answer.toUpperCase()) {
 			$scope.success = "Oikein";
-			$scope.scores += scoresForRound;
-			$scope.scores = Math.max($scope.scores, 0);
+			score();
 			randomQuestion();
 		}
 		else {
@@ -69,6 +74,16 @@ wordsCtrl.controller("AskWord", ["$scope", "$firebase", function($scope, $fireba
 		}
 	}
 	$scope.validate = validate;
+
+	function score() {
+		$scope.scores += scoresForRound;
+		scoresForRound = 1;
+		$scope.scores = Math.max($scope.scores, 0);
+
+		if($scope.scores > $scope.topScores) {
+			$scope.topScores = $scope.scores;
+		}
+	}
 	
 	$scope.keyPress = function($event) {
 		if($event.keyCode == 13) validate();
