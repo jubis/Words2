@@ -15,14 +15,14 @@
 		<h3>tip: <strong class="lines-n-letters">{{tip}}</strong></h3>
 	</div>
 	<div class="row">
-		<div class="btn large success four columns" ng-class="{disabled:!userAnswer}">
+		<div class="btn large success push_two four columns" ng-class="{disabled:!userAnswer}">
 			<button ng-click="validate()" ng-disabled="!userAnswer">Try</button>
 		</div>
-		<div class="btn large primary four columns" ng-class="{disabled:tipUsed}">
+		<div class="btn large primary four columns" ng-hide="tipUsed">
 			<button ng-click="showTip()" ng-disabled="tipUsed">Give a Tip</button>
 		</div>
-		<div class="btn large warning four columns">
-			<button ng-click="next()">Gimme next</button>
+		<div class="btn large danger four columns" ng-show="tipUsed" ng-class="{disabled:revealed}">
+			<button ng-click="showAnswer()" ng-disabled="revealed">Reveal :(</button>
 		</div>
 	</div>
 </div>

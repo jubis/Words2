@@ -14,8 +14,10 @@ wordsCtrl.controller("AskWord", ["$scope", "$firebase", function($scope, $fireba
 
 	$scope.tip = "t_p";
 	$scope.tipUsed = false;
+	$scope.revealed = false;
 
 	$scope.scores = 0;
+	var scoresForRound = 1;
 
 	var base = new Firebase("https://popping-fire-5673.firebaseio.com/");
 	$scope.d = $firebase(base);
@@ -44,6 +46,7 @@ wordsCtrl.controller("AskWord", ["$scope", "$firebase", function($scope, $fireba
 		$scope.userAnswer = "";
 		emptyValidationIndicators();
 		reinitTip();
+		scoresForRound = 1;
 	}
 
 	
@@ -57,7 +60,8 @@ wordsCtrl.controller("AskWord", ["$scope", "$firebase", function($scope, $fireba
 	function validate() {
 		if($scope.userAnswer.toUpperCase() == $scope.question.answer.toUpperCase()) {
 			$scope.success = "Oikein";
-			$scope.scores += 1;
+			$scope.scores += scoresForRound;
+			$scope.scores = Math.max($scope.scores, 0);
 			randomQuestion();
 		}
 		else {
@@ -75,6 +79,8 @@ wordsCtrl.controller("AskWord", ["$scope", "$firebase", function($scope, $fireba
 		if($scope.tipUsed) return;
 		else $scope.tipUsed = true;
 
+		scoresForRound = 0.5;
+
 		var answer = $scope.question.answer;
 		$scope.tip = answer.split("").map(function(char) {
 			if(char == " " || Math.random() < 0.4) {
@@ -91,9 +97,16 @@ wordsCtrl.controller("AskWord", ["$scope", "$firebase", function($scope, $fireba
 		$scope.tip = "";
 	}
 
-
-	$scope.next = function() {
-		randomQuestion();
-		$scope.scores -= ($scope.scores > 0) ? 1 : 0;
+	$scope.showAnswer = function() {
+		$scope.tip = $scope.question.answer;
+		scoresForRound = -1;
+		$scope.revealed = true;
 	}
+
+
+	/*$scope.next = function() {
+		randomQuestion();
+		$scope.scores -= 1;
+		$scope.scores = Math.max($scope.scores, 0);
+	}*/
 }]);
